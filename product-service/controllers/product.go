@@ -73,3 +73,24 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	// Retornar o produto atualizado como resposta
 	json.NewEncoder(w).Encode(product)
 }
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	// Extrair o ID do produto da URL
+	productID := r.PathValue("id")
+	fmt.Println(productID)
+
+	// Deletar o produto do banco de dados
+	stmt, err := config.DB.Prepare("DELETE FROM products WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = stmt.Exec(productID)
+	if err != nil {
+		http.Error(w, "Could not delete product", http.StatusInternalServerError)
+		return
+	}
+
+	// Retornar uma resposta de sucesso
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Product with ID %s deleted successfully", productID)
+}

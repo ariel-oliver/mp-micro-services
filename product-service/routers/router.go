@@ -12,5 +12,6 @@ func InitRouter() *http.ServeMux {
 	router.HandleFunc("POST /products", controllers.CreateProduct)
 	router.HandleFunc("GET /products", controllers.GetProducts)
 	router.HandleFunc("PUT /products/{id}", controllers.UpdateProduct)
+	router.HandleFunc("DELETE /products/{id}", controllers.DeleteProduct)
 	return router
 }
