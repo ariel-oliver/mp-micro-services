@@ -14,3 +14,4 @@ func InitRouter() *mux.Router {
 	router.HandleFunc("/products/{id}", controllers.UpdateProduct).Methods("PUT")
 	return router
 }
+
