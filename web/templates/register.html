@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">E-commerce</a>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Register</h1>
+            <form method="post" action="/register">
+                <div class="field">
+                    <label class="label" for="username">Username</label>
+                    <div class="control">
+                        <input class="input" type="text" name="username" id="username" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="password">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password" id="password" required>
+                    </div>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-primary">Register</button>
+                </div>
+            </form>
+            <div class="mt-4">
+                <a href="/" class="button is-light">Home</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

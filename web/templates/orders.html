@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">Orders</h1>
+            <form method="post" action="/orders">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" name="user_id" placeholder="User ID" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" name="product_id" placeholder="Product ID" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="number" name="quantity" placeholder="Quantity" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="number" name="total" placeholder="Total" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-fullwidth is-success">Create Order</button>
+                    </div>
+                </div>
+            </form>
+            <h2 class="subtitle mt-4">Order List</h2>
+            <ul>
+            {{range .}}
+                <li>Order {{.id}}: User {{.user_id}} bought Product {{.product_id}} (Quantity: {{.quantity}}, Total: ${{.total}})</li>
+            {{end}}
+            </ul>
+            <div class="has-text-centered mt-4">
+                <a href="/" class="button is-light">Home</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

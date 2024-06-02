@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">E-commerce</a>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Products</h1>
+            <div class="columns is-multiline">
+                {{range .}}
+                <div class="column is-one-quarter">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{{.image}}" alt="{{.name}}">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title">{{.name}}</p>
+                            <p class="subtitle">${{.price}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="card-footer-item">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+            <div class="mt-4">
+                <a href="/" class="button is-light">Home</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
