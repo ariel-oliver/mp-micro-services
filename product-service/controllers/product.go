@@ -83,12 +83,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	// Extrair o ID do produto da URL
 	productID := r.PathValue("id")
-	
-	if err != nil {
-		http.Error(w, "Invalid product ID", http.StatusBadRequest)
-		return
-	}
-
+		
 	// Decodificar o corpo da solicitação em uma estrutura de produto
 	var product models.Product
 	err = json.NewDecoder(r.Body).Decode(&product)
