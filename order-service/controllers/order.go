@@ -44,3 +44,36 @@ func GetOrders(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(orders)
 }
+func UpdateOrder(w http.ResponseWriter, r *http.Request) {
+	var updatedOrder models.Order
+	json.NewDecoder(r.Body).Decode(&updatedOrder)
+
+	stmt, err := config.DB.Prepare("UPDATE orders SET user_id = ?, product_id = ?, quantity = ?, total = ? WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = stmt.Exec(updatedOrder.UserID, updatedOrder.ProductID, updatedOrder.Quantity, updatedOrder.Total, updatedOrder.ID)
+	if err != nil {
+		http.Error(w, "Could not update order", http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(updatedOrder)
+}
+func DeleteOrder(w http.ResponseWriter, r *http.Request) {
+	var deletedOrder models.Order
+	json.NewDecoder(r.Body).Decode(&deletedOrder)
+
+	stmt, err := config.DB.Prepare("DELETE FROM orders WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = stmt.Exec(deletedOrder.ID)
+	if err != nil {
+		http.Error(w, "Could not delete order", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Order deleted successfully"})
+}
