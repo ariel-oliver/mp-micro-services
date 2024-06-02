@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/ariel-oliver/mp-micro-services/product-service/config"
@@ -47,7 +48,8 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	// Extrair o ID do produto da URL
 	productID := r.PathValue("id")
-		
+	fmt.Println(productID)
+
 	// Decodificar o corpo da solicitação em uma estrutura de produto
 	var product models.Product
 	err := json.NewDecoder(r.Body).Decode(&product)
