@@ -44,3 +44,26 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(products)
 }
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+    var updatedProduct models.Product
+    err := json.NewDecoder(r.Body).Decode(&updatedProduct)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+    vars := mux.Vars(r)
+    id, err := strconv.Atoi(vars["id"])
+    if err != nil {
+        http.Error(w, "Invalid product ID", http.StatusBadRequest)
+        return
+    }
+    updatedProduct.ID = id
+
+    err = models.UpdateProduct(updatedProduct)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(updatedProduct)
+}

@@ -7,6 +7,7 @@ import (
 )
 
 func InitRouter() *mux.Router {
+	//Inserir PUT
 	router := mux.NewRouter()
 	router.HandleFunc("/products", controllers.CreateProduct).Methods("POST")
 	router.HandleFunc("/products", controllers.GetProducts).Methods("GET")
