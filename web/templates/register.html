@@ -15,7 +15,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title">Register</h1>
-            <form method="post" action="/register">
+            <form id="register-form">
                 <div class="field">
                     <label class="label" for="username">Username</label>
                     <div class="control">
@@ -32,10 +32,12 @@
                     <button type="submit" class="button is-primary">Register</button>
                 </div>
             </form>
+            <div id="register-error" style="display: none; color: red;">Registration failed. Please try again.</div>
             <div class="mt-4">
                 <a href="/" class="button is-light">Home</a>
             </div>
         </div>
     </section>
+    <script src="main.js"></script>
 </body>
 </html>
