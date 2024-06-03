@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/ariel-oliver/mp-micro-services/product-service/config"
@@ -43,4 +44,53 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 		products = append(products, product)
 	}
 	json.NewEncoder(w).Encode(products)
+}
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	// Extrair o ID do produto da URL
+	productID := r.PathValue("id")
+	fmt.Println(productID)
+
+	// Decodificar o corpo da solicitação em uma estrutura de produto
+	var product models.Product
+	err := json.NewDecoder(r.Body).Decode(&product)
+	if err != nil {
+		http.Error(w, "Invalid JSON payload", http.StatusBadRequest)
+		return
+	}
+
+	// Atualizar o produto no banco de dados
+	stmt, err := config.DB.Prepare("UPDATE products SET name = ?, price = ? WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = stmt.Exec(product.Name, product.Price, productID)
+	if err != nil {
+		http.Error(w, "Could not update product", http.StatusInternalServerError)
+		return
+	}
+
+	// Retornar o produto atualizado como resposta
+	json.NewEncoder(w).Encode(product)
+}
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	// Extrair o ID do produto da URL
+	productID := r.PathValue("id")
+	fmt.Println(productID)
+
+	// Deletar o produto do banco de dados
+	stmt, err := config.DB.Prepare("DELETE FROM products WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = stmt.Exec(productID)
+	if err != nil {
+		http.Error(w, "Could not delete product", http.StatusInternalServerError)
+		return
+	}
+
+	// Retornar uma resposta de sucesso
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Product with ID %s deleted successfully", productID)
 }

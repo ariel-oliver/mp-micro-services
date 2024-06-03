@@ -1,14 +1,17 @@
 package routers
 
 import (
-	"github.com/ariel-oliver/mp-micro-services/product-service/controllers"
+	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/ariel-oliver/mp-micro-services/product-service/controllers"
 )
 
-func InitRouter() *mux.Router {
-	router := mux.NewRouter()
-	router.HandleFunc("/products", controllers.CreateProduct).Methods("POST")
-	router.HandleFunc("/products", controllers.GetProducts).Methods("GET")
+func InitRouter() *http.ServeMux {
+	//Inserir PUT
+	router := http.NewServeMux()
+	router.HandleFunc("POST /products", controllers.CreateProduct)
+	router.HandleFunc("GET /products", controllers.GetProducts)
+	router.HandleFunc("PUT /products/{id}", controllers.UpdateProduct)
+	router.HandleFunc("DELETE /products/{id}", controllers.DeleteProduct)
 	return router
 }
