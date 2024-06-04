@@ -1,41 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #fff;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">E-commerce</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
         </div>
     </nav>
 
     <section class="section">
         <div class="container">
             <h1 class="title">Login</h1>
-            <form method="post" action="/login">
-                <div class="field">
-                    <label class="label" for="username">Username</label>
-                    <div class="control">
-                        <input class="input" type="text" name="username" id="username" required>
+            <div class="form-container">
+                <form method="post" action="/login">
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input class="form-control" type="text" name="username" id="username" required>
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label" for="password">Password</label>
-                    <div class="control">
-                        <input class="input" type="password" name="password" id="password" required>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" name="password" id="password" required>
                     </div>
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <a href="/register" class="btn btn-light">Register</a>
                 </div>
-                <div class="control">
-                    <button type="submit" class="button is-primary">Login</button>
-                </div>
-            </form>
-            <div class="mt-4">
-                <a href="/" class="button is-light">Home</a>
             </div>
         </div>
     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

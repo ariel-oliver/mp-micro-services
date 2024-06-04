@@ -3,94 +3,50 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
-
-	"github.com/ariel-oliver/mp-micro-services/product-service/config"
-	"github.com/ariel-oliver/mp-micro-services/product-service/models"
+	"os"
 )
 
-func CreateProduct(w http.ResponseWriter, r *http.Request) {
-	var product models.Product
-	json.NewDecoder(r.Body).Decode(&product)
-
-	stmt, err := config.DB.Prepare("INSERT INTO products (name, price) VALUES (?, ?)")
-	if err != nil {
-		http.Error(w, "Database error", http.StatusInternalServerError)
-		return
-	}
-	_, err = stmt.Exec(product.Name, product.Price)
-	if err != nil {
-		http.Error(w, "Could not create product", http.StatusInternalServerError)
-		return
-	}
-	json.NewEncoder(w).Encode(product)
+type Product struct {
+	Uuid        string  `json:"uuid"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+	ImageURL    string  `json:"image_url"`
 }
 
-func GetProducts(w http.ResponseWriter, r *http.Request) {
-	rows, err := config.DB.Query("SELECT id, name, price FROM products")
-	if err != nil {
-		http.Error(w, "Database error", http.StatusInternalServerError)
-		return
-	}
-	defer rows.Close()
+type Products struct {
+	Products []Product
+}
 
-	var products []models.Product
-	for rows.Next() {
-		var product models.Product
-		if err := rows.Scan(&product.ID, &product.Name, &product.Price); err != nil {
-			http.Error(w, "Error scanning product", http.StatusInternalServerError)
-			return
+func loadData() []byte {
+	jsonFile, err := os.Open("products.json")
+	if err != nil {
+		fmt.Println("erro: ", err.Error())
+	}
+	defer jsonFile.Close()
+
+	data, _ := io.ReadAll(jsonFile)
+	return data
+}
+
+func ListProducts(w http.ResponseWriter, r *http.Request) {
+	products := loadData()
+	w.Write([]byte(products))
+}
+
+func GetProductById(w http.ResponseWriter, r *http.Request) {
+	productID := r.PathValue("id")
+	data := loadData()
+
+	var products Products
+	json.Unmarshal(data, &products)
+
+	for _, v := range products.Products {
+		if v.Uuid == productID {
+			product, _ := json.Marshal(v)
+			w.Write([]byte(product))
 		}
-		products = append(products, product)
 	}
-	json.NewEncoder(w).Encode(products)
-}
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	// Extrair o ID do produto da URL
-	productID := r.PathValue("id")
-	fmt.Println(productID)
-
-	// Decodificar o corpo da solicitação em uma estrutura de produto
-	var product models.Product
-	err := json.NewDecoder(r.Body).Decode(&product)
-	if err != nil {
-		http.Error(w, "Invalid JSON payload", http.StatusBadRequest)
-		return
-	}
-
-	// Atualizar o produto no banco de dados
-	stmt, err := config.DB.Prepare("UPDATE products SET name = ?, price = ? WHERE id = ?")
-	if err != nil {
-		http.Error(w, "Database error", http.StatusInternalServerError)
-		return
-	}
-	_, err = stmt.Exec(product.Name, product.Price, productID)
-	if err != nil {
-		http.Error(w, "Could not update product", http.StatusInternalServerError)
-		return
-	}
-
-	// Retornar o produto atualizado como resposta
-	json.NewEncoder(w).Encode(product)
-}
-func DeleteProduct(w http.ResponseWriter, r *http.Request) {
-	// Extrair o ID do produto da URL
-	productID := r.PathValue("id")
-	fmt.Println(productID)
-
-	// Deletar o produto do banco de dados
-	stmt, err := config.DB.Prepare("DELETE FROM products WHERE id = ?")
-	if err != nil {
-		http.Error(w, "Database error", http.StatusInternalServerError)
-		return
-	}
-	_, err = stmt.Exec(productID)
-	if err != nil {
-		http.Error(w, "Could not delete product", http.StatusInternalServerError)
-		return
-	}
-
-	// Retornar uma resposta de sucesso
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Product with ID %s deleted successfully", productID)
 }

@@ -1,0 +1,107 @@
+[
+    {
+        "uuid": "45688cd6-7a27-4a7b-89c5-a9b604eefe2f",
+        "name": "Espresso",
+        "description": "Café concentrado com um sabor forte e intenso.",
+        "price": 2.50,
+        "image_url": "https://images.unsplash.com/photo-1550966871-3edda4da7a57"
+    },
+    {
+        "uuid": "9a118e4d-821a-44c7-accc-fa99ac4be01a",
+        "name": "Americano",
+        "description": "Espresso diluído em água quente, resultando em um café mais suave.",
+        "price": 3.00,
+        "image_url": "https://images.unsplash.com/photo-1511920170033-f8396924c348"
+    },
+    {
+        "uuid": "29587bee-7642-43bd-a635-076b18995f39",
+        "name": "Cappuccino",
+        "description": "Café espresso misturado com leite vaporizado e espuma de leite.",
+        "price": 3.50,
+        "image_url": "https://images.unsplash.com/photo-1511376777868-611b54f68947"
+    },
+    {
+        "uuid": "a2933e23-5521-4361-90f0-4ffa9b7d1de0",
+        "name": "Latte",
+        "description": "Café espresso com uma grande quantidade de leite vaporizado.",
+        "price": 3.75,
+        "image_url": "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb"
+    },
+    {
+        "uuid": "87c3bde9-5590-4db1-a62e-74b6a649e9d5",
+        "name": "Mocha",
+        "description": "Café espresso com chocolate, leite vaporizado e chantilly.",
+        "price": 4.00,
+        "image_url": "https://images.unsplash.com/photo-1558693316-7915b8671a37"
+    },
+    {
+        "uuid": "0bae82e9-3a85-4f37-8ad4-feba28bac1c4",
+        "name": "Macchiato",
+        "description": "Espresso com uma pequena quantidade de leite vaporizado.",
+        "price": 3.25,
+        "image_url": "https://images.unsplash.com/photo-1600718372916-4fb3375f9dff"
+    },
+    {
+        "uuid": "ed509145-bf2a-4ec3-80c5-2c3bb73a9fb6",
+        "name": "Ristretto",
+        "description": "Versão mais concentrada do espresso, com menos água.",
+        "price": 2.75,
+        "image_url": "https://images.unsplash.com/photo-1511920170033-f8396924c348"
+    },
+    {
+        "uuid": "f5e66310-78b4-42c4-95e2-c0a9c8faa319",
+        "name": "Flat White",
+        "description": "Espresso com leite vaporizado, similar ao latte, mas com menos espuma.",
+        "price": 3.50,
+        "image_url": "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+    },
+    {
+        "uuid": "3714c3e3-3e37-4ec5-a62a-9570a1357b9d",
+        "name": "Affogato",
+        "description": "Uma bola de sorvete de baunilha coberta com uma dose de espresso quente.",
+        "price": 4.50,
+        "image_url": "https://images.unsplash.com/photo-1553444857-f6384ecf2e6e"
+    },
+    {
+        "uuid": "0d99e436-6feb-4b77-845a-8b20d43dbf60",
+        "name": "Café com Leite",
+        "description": "Café tradicional misturado com leite quente.",
+        "price": 2.75,
+        "image_url": "https://images.unsplash.com/photo-1535315639826-2416b7b75e4a"
+    },
+    {
+        "uuid": "d2490a0f-1253-4176-a40e-803d8bfc9eda",
+        "name": "Café Gelado",
+        "description": "Café preparado e servido frio, geralmente com gelo.",
+        "price": 3.00,
+        "image_url": "https://images.unsplash.com/photo-1546069901-eacef0df6022"
+    },
+    {
+        "uuid": "f9807d2e-2ab9-4ed3-9176-574abe87f8ff",
+        "name": "Cold Brew",
+        "description": "Café preparado com água fria por um longo período, resultando em um sabor suave.",
+        "price": 4.00,
+        "image_url": "https://images.unsplash.com/photo-1497477200336-775d83c7dae1"
+    },
+    {
+        "uuid": "8402e2b4-ab65-49ea-8923-be46332c0897",
+        "name": "Irish Coffee",
+        "description": "Café misturado com uísque irlandês, açúcar e creme.",
+        "price": 5.00,
+        "image_url": "https://images.unsplash.com/photo-1564078516393-07a99a21e237"
+    },
+    {
+        "uuid": "41e19236-e67c-4521-b2f6-e6baf328298d",
+        "name": "Turkish Coffee",
+        "description": "Café forte e não filtrado, preparado com grãos moídos finamente.",
+        "price": 3.25,
+        "image_url": "https://images.unsplash.com/photo-1517686469429-4832a7b4a28e"
+    },
+    {
+        "uuid": "6fc0e66f-f725-432b-bb9c-a0b2c00de9c0",
+        "name": "Café Vienense",
+        "description": "Café misturado com chantilly e chocolate em pó.",
+        "price": 4.25,
+        "image_url": "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+    }
+]

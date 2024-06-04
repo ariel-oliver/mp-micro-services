@@ -9,9 +9,7 @@ import (
 func InitRouter() *http.ServeMux {
 	//Inserir PUT
 	router := http.NewServeMux()
-	router.HandleFunc("POST /products", controllers.CreateProduct)
-	router.HandleFunc("GET /products", controllers.GetProducts)
-	router.HandleFunc("PUT /products/{id}", controllers.UpdateProduct)
-	router.HandleFunc("DELETE /products/{id}", controllers.DeleteProduct)
+	router.HandleFunc("GET /products", controllers.ListProducts)
+	router.HandleFunc("GET /product/{id}", controllers.GetProductById)
 	return router
 }
