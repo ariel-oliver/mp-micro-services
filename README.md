@@ -18,7 +18,9 @@ Para executar os serviços, siga as etapas abaixo:
    - Terminal 3: `cd web`
 
 3. Em cada terminal, execute o seguinte comando para iniciar o serviço:
-
+   ```shell
+      go run main.go
+   ```
 - `jwt-auth-service` será executado na porta **8083**
 - `product-service` será executado na porta **8081**
 - `web` será executado na porta **8080**
