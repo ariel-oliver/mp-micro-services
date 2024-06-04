@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -22,7 +23,12 @@ func GenerateJWT(username string) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(jwtKey)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		log.Println("Error generating token:", err)
+		return "", err
+	}
+	return tokenString, nil
 }
 
 func ValidateJWT(tokenStr string) (*Claims, error) {
@@ -31,10 +37,12 @@ func ValidateJWT(tokenStr string) (*Claims, error) {
 		return jwtKey, nil
 	})
 	if err != nil {
+		log.Println("Error parsing token:", err)
 		return nil, err
 	}
 	if !token.Valid {
-		return nil, err
+		log.Println("Invalid token")
+		return nil, jwt.NewValidationError("invalid token", jwt.ValidationErrorSignatureInvalid)
 	}
 	return claims, nil
 }

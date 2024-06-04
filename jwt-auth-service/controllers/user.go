@@ -3,6 +3,7 @@ package controllers
 import (
 	"database/sql"
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/ariel-oliver/mp-micro-services/jwt-auth-service/config"
@@ -13,29 +14,35 @@ import (
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	var user models.User
-	json.NewDecoder(r.Body).Decode(&user)
+    var user models.User
+    if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+        log.Println("Error decoding request body:", err)
+        http.Error(w, "Invalid request", http.StatusBadRequest)
+        return
+    }
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	if err != nil {
-		http.Error(w, "Error hashing password", http.StatusInternalServerError)
-		return
-	}
-	user.Password = string(hashedPassword)
+    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+    if err != nil {
+        log.Println("Error generating password hash:", err)
+        http.Error(w, "Error hashing password", http.StatusInternalServerError)
+        return
+    }
+    user.Password = string(hashedPassword)
 
-	stmt, err := config.DB.Prepare("INSERT INTO users (username, password) VALUES (?, ?)")
-	if err != nil {
-		http.Error(w, "Database error", http.StatusInternalServerError)
-		return
-	}
-	_, err = stmt.Exec(user.Username, user.Password)
-	if err != nil {
-		http.Error(w, "Could not create user", http.StatusInternalServerError)
-		return
-	}
-	json.NewEncoder(w).Encode(user)
+    stmt, err := config.DB.Prepare("INSERT INTO users (username, password) VALUES (?, ?)")
+    if err != nil {
+        log.Println("Error preparing SQL statement:", err)
+        http.Error(w, "Database error", http.StatusInternalServerError)
+        return
+    }
+    _, err = stmt.Exec(user.Username, user.Password)
+    if err != nil {
+        log.Println("Error executing SQL statement:", err)
+        http.Error(w, "Could not create user", http.StatusInternalServerError)
+        return
+    }
+    json.NewEncoder(w).Encode(user)
 }
-
 func Login(w http.ResponseWriter, r *http.Request) {
 	var input models.User
 	var user models.User
